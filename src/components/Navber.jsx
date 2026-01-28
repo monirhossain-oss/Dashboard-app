@@ -19,7 +19,7 @@ export default function Navbar({ user }) {
     const userImage = user?.image || '/b940caf9f3a52bcc9317c793ebc094db911b237b.jpg'; // always show default if no user
 
     return (
-        <div className="h-28 border-b border-r-1 border-[#2a3e7b] bg-[#111B3C] flex items-center justify-between px-6 shadow-md">
+        <div className="p-2 border-b border-r-1 border-[#2a3e7b] bg-[#111B3C] flex items-center justify-between px-6 shadow-md">
             {/* Left side - active menu name */}
             <h1 className="font-semibold text-xl text-white">{activeName}</h1>
 
