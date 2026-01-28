@@ -17,7 +17,7 @@ const cardData = [
     { title: "Revenue", live: 540, growth: "+20%", icon: "/icon3.png", bg: "linear-gradient(135deg, #8A2BE2 0%, #DA70D6 100%)" },
     { title: "Appointments", live: 75, growth: "+5%", icon: "/icon4.png", bg: "linear-gradient(135deg, #32CD32 0%, #7CFC00 100%)" },
     { title: "Messages", live: 98, growth: "+15%", icon: "/icon5.png", bg: "linear-gradient(135deg, #FFA500 0%, #FFD700 100%)" },
-    { title: "Feedbacks", live: 42, growth: "+3%", icon: "/icon6x.png", bg: "linear-gradient(135deg, #FF1493 0%, #FF69B4 100%)" },
+    { title: "Feedbacks", live: 42, growth: "+3%", icon: "/icon6.png", bg: "linear-gradient(135deg, #FF1493 0%, #FF69B4 100%)" },
 ];
 
 const dataMap = {
@@ -83,19 +83,22 @@ export default function Dashboard() {
     const maxCount = Math.max(...topRequests.map(req => req.count));
 
     return (
-        <div className="bg-[#111B3C]">
+        <div>
             {/* Cards */}
-            <div className="grid grid-cols-3 gap-4 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
                 {cardData.map((card, idx) => (
                     <div
                         key={idx}
                         className="relative p-4 rounded-xl border border-[#2B7FFF33] bg-[#0F172B80] flex items-center justify-between"
                     >
+                        {/* Left Side - Info */}
                         <div className="flex flex-col justify-center gap-2">
                             <span className="text-sm text-gray-400">{card.title}</span>
                             <span className="text-xl font-bold text-white">{card.live}</span>
                             <span className="text-sm text-green-400">{card.growth}</span>
                         </div>
+
+                        {/* Right Side - Icon */}
                         <div
                             className="w-[40px] h-[40px] p-2 rounded-xl flex items-center justify-center"
                             style={{ background: card.bg }}
@@ -110,9 +113,11 @@ export default function Dashboard() {
                 ))}
             </div>
 
+
             {/* Call Trends */}
-            <div className="bg-[#0F172B] p-6 rounded-[16px] border border-[#2B7FFF33] w-full max-w-[1036px] mb-8">
-                <div className="flex justify-between items-center mb-4">
+            <div className="bg-[#0F172B] p-4 sm:p-6 rounded-[16px] border border-[#2B7FFF33] w-full mb-8 max-w-full lg:max-w-[1036px] mx-auto">
+                {/* Header */}
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-3 sm:gap-0">
                     <div>
                         <h2 className="text-white font-semibold text-lg">
                             Call Trends - {timeframe}
@@ -122,7 +127,7 @@ export default function Dashboard() {
                         </p>
                     </div>
                     <select
-                        className="bg-[#111B3C] text-white px-3 py-1 rounded-xl border border-gray-600"
+                        className="bg-[#111B3C] text-white px-3 py-1 rounded-xl border border-gray-600 text-sm"
                         value={timeframe}
                         onChange={(e) => setTimeframe(e.target.value)}
                     >
@@ -131,7 +136,9 @@ export default function Dashboard() {
                         <option>This Year</option>
                     </select>
                 </div>
-                <ResponsiveContainer width="100%" height={280}>
+
+                {/* Area Chart */}
+                <ResponsiveContainer width="100%" height={250}>
                     <AreaChart data={dataMap[timeframe]}>
                         <defs>
                             <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
@@ -142,7 +149,14 @@ export default function Dashboard() {
                         <CartesianGrid vertical={false} horizontal={false} />
                         <XAxis dataKey="day" tick={{ fill: "#A0AEC0", fontSize: 12 }} />
                         <YAxis tick={{ fill: "#A0AEC0", fontSize: 12 }} />
-                        <Tooltip contentStyle={{ backgroundColor: "#0F172B", border: "none", borderRadius: "8px", color: "#fff" }} />
+                        <Tooltip
+                            contentStyle={{
+                                backgroundColor: "#0F172B",
+                                border: "none",
+                                borderRadius: "8px",
+                                color: "#fff",
+                            }}
+                        />
                         <Area
                             type="monotone"
                             dataKey="calls"
@@ -155,14 +169,21 @@ export default function Dashboard() {
                 </ResponsiveContainer>
             </div>
 
+
             {/* Recent Activity & Top Requests */}
-            <div className="grid grid-cols-2 gap-4">
-                <div className="bg-[#0F172B] p-6 rounded-xl border border-[#2B7FFF33]">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {/* Recent Activity */}
+                <div className="bg-[#0F172B] p-4 sm:p-6 rounded-xl border border-[#2B7FFF33]">
                     <h2 className="text-white font-semibold text-lg mb-4">Recent Activity</h2>
                     <div className="flex flex-col gap-3">
-                        {recentActivity.map(act => (
-                            <div key={act.id} className="flex items-start gap-3 bg-[#151c35] p-3 rounded-md">
-                                <span className={`w-3 h-3 mt-1 rounded-full ${statusColors[act.status]}`}></span>
+                        {recentActivity.map((act) => (
+                            <div
+                                key={act.id}
+                                className="flex items-start gap-3 bg-[#151c35] p-3 rounded-md"
+                            >
+                                <span
+                                    className={`w-3 h-3 mt-1 rounded-full ${statusColors[act.status]}`}
+                                ></span>
                                 <div>
                                     <p className="text-gray-300 text-sm">{act.message}</p>
                                     <span className="text-gray-500 text-xs">{act.time}</span>
@@ -172,10 +193,11 @@ export default function Dashboard() {
                     </div>
                 </div>
 
-                <div className="bg-[#0F172B] p-6 rounded-xl border border-[#2B7FFF33]">
+                {/* Top Repair Requests */}
+                <div className="bg-[#0F172B] p-4 sm:p-6 rounded-xl border border-[#2B7FFF33]">
                     <h2 className="text-white font-semibold text-lg mb-4">Top Repair Requests</h2>
                     <div className="flex flex-col gap-4">
-                        {topRequests.map(req => {
+                        {topRequests.map((req) => {
                             const percentage = (req.count / maxCount) * 100;
                             return (
                                 <div key={req.id} className="flex flex-col gap-1">
