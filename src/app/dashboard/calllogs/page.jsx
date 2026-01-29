@@ -66,33 +66,41 @@ export default function Page() {
     const [active, setActive] = useState(calls[0]);
 
     return (
-        <div className="text-white p-3 sm:p-6">
+        <div className="text-white">
 
             {/* Top Bar */}
-            <div className="flex flex-col md:flex-row gap-3 mb-6">
+            <div className="flex flex-col md:flex-row gap-3 mb-6 w-full">
 
+                {/* Search */}
                 <input
                     placeholder="Search by phone number, issue type..."
-                    className="flex-1 bg-[#0b1437] rounded-xl px-4 py-2 outline-none"
+                    className="w-full md:flex-1 bg-[#0b1437] rounded-xl px-4 py-2.5 outline-none text-sm"
                 />
 
-                <div className="relative">
-                    <MdArrowDropDown className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400" />
-                    <select className="bg-[#0b1437] rounded-xl px-4 py-2 appearance-none w-full md:w-auto">
+                {/* Type */}
+                <div className="relative w-full md:w-[160px]">
+                    <MdArrowDropDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                    <select className="w-full bg-[#0b1437] rounded-xl px-4 py-2.5 pr-8 appearance-none text-sm">
                         <option>All Type</option>
                     </select>
                 </div>
 
-                <div className="relative">
-                    <MdArrowDropDown className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400" />
-                    <select className="bg-[#0b1437] rounded-xl px-4 py-2 appearance-none w-full md:w-auto">
+                {/* Issues */}
+                <div className="relative w-full md:w-[160px]">
+                    <MdArrowDropDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                    <select className="w-full bg-[#0b1437] rounded-xl px-4 py-2.5 pr-8 appearance-none text-sm">
                         <option>All Issues</option>
                     </select>
                 </div>
 
-                <button className="bg-[#0b1437] rounded-xl px-4 py-2 w-full md:w-auto">
-                    Today
-                </button>
+                {/* Date */}
+                <div className="relative w-full md:w-[140px]">
+                    <MdArrowDropDown className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                    <select className="w-full bg-[#0b1437] rounded-xl px-4 py-2.5 pr-8 appearance-none text-sm">
+                        <option>Today</option>
+                    </select>
+                </div>
+
             </div>
 
             {/* Main Layout */}
@@ -128,8 +136,8 @@ export default function Page() {
                             </div>
 
                             <div className="flex flex-wrap gap-2 text-xs opacity-70 mt-2">
-                                <span>5 min ago</span>
-                                <span>{c.outcome}</span>
+                                <span className="flex gap-1"> <span><img src="/time.png" alt="" /></span> 5 min ago</span>
+                                <span className="flex gap-1"><span><img src="/right.png" alt="" /></span>{c.outcome}</span>
                                 <span className="text-blue-400 bg-blue-400/10 px-2 rounded">
                                     {c.issue}
                                 </span>
@@ -151,17 +159,35 @@ export default function Page() {
                         <Info label="Issue" value={active.issue} />
                         <Info label="Outcome" value={active.outcome} />
                     </div>
+                    <div className="m-4 space-y-3">
+                        <div className="space-y-2">
+                            <p className="text-gray-400 text-sm">Call Type</p>
+                            <span className="px-4 py-2 rounded-xl bg-green-600/30 text-green-500">AI Resolved</span>
+                        </div>
+                        <div className="mt-5">
+                            <p className="text-gray-400 text-sm">Outcome</p>
+                            <p>Quote provided</p>
+                        </div>
+                    </div>
 
-                    <button className="mx-auto mt-4 flex gap-2 items-center bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-3 rounded-xl">
-                        ▶ Play Audio Recording
+                    <button className="mx-auto mt-4 flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-purple-600 text-purple-300 px-6 py-3 rounded-xl w-full max-w-sm">
+                        <img src="/pose.png" alt="" className="w-5 h-5" />
+                        <span className="text-sm md:text-base">Play Audio Recording</span>
                     </button>
 
-                    <div className="m-4 bg-[#0e1842] p-4 rounded-xl space-y-3 text-sm">
-                        <p className="text-green-400">AI Assistant</p>
-                        <p>Thank you for calling UBreakiFix!</p>
 
-                        <p className="text-blue-400">Customer</p>
-                        <p>My iPhone 13 screen is cracked.</p>
+                    <div>
+                        <div className="flex items-center gap-1 m-4">
+                            <img src="/boo.png" alt="" />
+                            <h3>Conversation Transcript</h3>
+                        </div>
+                        <div className="m-4 bg-[#0e1842] p-4 rounded-xl space-y-3 text-sm">
+                            <p className="text-green-400">AI Assistant</p>
+                            <p>Thank you for calling UBreakiFix!</p>
+
+                            <p className="text-blue-400">Customer</p>
+                            <p>My iPhone 13 screen is cracked.</p>
+                        </div>
                     </div>
                 </div>
             </div>
