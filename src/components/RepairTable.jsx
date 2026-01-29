@@ -1,92 +1,89 @@
-// components/RepairTable.js
-import { useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
-const data = [
-  { clientName: "Jane.D", clientPhone: "01960685765", clientMail: "admin@gmail.com", device: "Apple/Iphone 13pro", repairType: "Screen", date: "02/06/2026", slotNo: 1, startTime: "09:00" },
-  { clientName: "Jane.D", clientPhone: "01960685765", clientMail: "admin@gmail.com", device: "Apple/Iphone 13pro", repairType: "Screen", date: "02/06/2026", slotNo: 1, startTime: "10:00" },
-  { clientName: "Jane.D", clientPhone: "01960685765", clientMail: "admin@gmail.com", device: "Apple/Iphone 13pro", repairType: "Screen", date: "02/06/2026", slotNo: 1, startTime: "11:00" },
-  { clientName: "Jane.D", clientPhone: "01960685765", clientMail: "admin@gmail.com", device: "Apple/Iphone 13pro", repairType: "Screen", date: "02/06/2026", slotNo: 1, startTime: "12:00" },
-  { clientName: "Jane.D", clientPhone: "01960685765", clientMail: "admin@gmail.com", device: "Apple/Iphone 13pro", repairType: "Screen", date: "02/06/2026", slotNo: 1, startTime: "02:00" },
-  { clientName: "Jane.D", clientPhone: "01960685765", clientMail: "admin@gmail.com", device: "Apple/Iphone 13pro", repairType: "Screen", date: "02/06/2026", slotNo: 1, startTime: "03:00" },
-  // আরও ডাটা যোগ করতে পারো
-];
-
-const RepairTable = () => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const rowsPerPage = 5;
-
-  const totalPages = Math.ceil(data.length / rowsPerPage);
-
-  const handlePrev = () => {
-    if (currentPage > 1) setCurrentPage(currentPage - 1);
-  };
-
-  const handleNext = () => {
-    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
-  };
-
-  const startIndex = (currentPage - 1) * rowsPerPage;
-  const currentData = data.slice(startIndex, startIndex + rowsPerPage);
+export default function RepairTable() {
+  const data = [
+    { time: "09:00" },
+    { time: "10:00" },
+    { time: "11:00" },
+    { time: "12:00" },
+    { time: "02:00" },
+    { time: "03:00" },
+  ];
 
   return (
-    <div className="p-4">
-      {/* Horizontally scrollable wrapper for mobile */}
-      <div className="overflow-x-auto rounded-lg shadow-lg">
-        <table className="min-w-full text-white bg-gray-800">
-          <thead className="bg-gray-900">
-            <tr>
-              <th className="px-4 py-2 text-left whitespace-nowrap">Client Name</th>
-              <th className="px-4 py-2 text-left whitespace-nowrap">Client Phone</th>
-              <th className="px-4 py-2 text-left whitespace-nowrap">Client Mail</th>
-              <th className="px-4 py-2 text-left whitespace-nowrap">Device</th>
-              <th className="px-4 py-2 text-left whitespace-nowrap">Repair Type</th>
-              <th className="px-4 py-2 text-left whitespace-nowrap">Date</th>
-              <th className="px-4 py-2 text-left whitespace-nowrap">Slot no</th>
-              <th className="px-4 py-2 text-left whitespace-nowrap">Start Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentData.map((row, idx) => (
-              <tr key={idx} className="border-b border-gray-700 hover:bg-gray-700">
-                <td className="px-4 py-2 whitespace-nowrap">{row.clientName}</td>
-                <td className="px-4 py-2 whitespace-nowrap">{row.clientPhone}</td>
-                <td className="px-4 py-2 whitespace-nowrap">{row.clientMail}</td>
-                <td className="px-4 py-2 whitespace-nowrap">{row.device}</td>
-                <td className="px-4 py-2 whitespace-nowrap">{row.repairType}</td>
-                <td className="px-4 py-2 whitespace-nowrap">{row.date}</td>
-                <td className="px-4 py-2 whitespace-nowrap">{row.slotNo}</td>
-                <td className="px-4 py-2 whitespace-nowrap">{row.startTime}</td>
+    <div className="mt-4 flex items-center justify-center ">
+      <div className="w-full max-w-5xl bg-[#0b1739] rounded-xl shadow-lg overflow-hidden">
+        {/* Table */}
+        <div className="overflow-x-auto scrollbar-hide">
+          <table className="w-full text-xs text-left text-gray-200">
+            <thead className="bg-[#0e1e4a] text-gray-300">
+              <tr>
+                {[
+                  "Client Name",
+                  "Client Phone",
+                  "Client mail",
+                  "Device",
+                  "Repair Type",
+                  "Date",
+                  "Slot no",
+                  "Start Time",
+                ].map((h) => (
+                  <th key={h} className="px-3 py-2 font-medium whitespace-nowrap">
+                    {h}
+                  </th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+            </thead>
+            <tbody>
+              {data.map((row, i) => (
+                <tr
+                  key={i}
+                  className="border-b border-[#1c2b5a] hover:bg-[#0f2354] transition"
+                >
+                  <td className="px-3 py-2 text-blue-400 font-medium">Jane.D</td>
+                  <td className="px-3 py-2">01960685765</td>
+                  <td className="px-3 py-2">admin@gmail.com</td>
+                  <td className="px-3 py-2">Apple/Iphone 13pro</td>
+                  <td className="px-3 py-2">Screen</td>
+                  <td className="px-3 py-2">02/06/2026</td>
+                  <td className="px-3 py-2">1</td>
+                  <td className="px-3 py-2">{row.time}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
 
-      {/* Pagination */}
-      <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-4">
-        <button
-          onClick={handlePrev}
-          disabled={currentPage === 1}
-          className="flex items-center gap-1 px-3 py-2 bg-gray-700 rounded hover:bg-gray-600 disabled:opacity-50"
-        >
-          <FaChevronLeft /> Previous
-        </button>
+        {/* Pagination */}
+        <div className="flex items-center justify-center gap-2 py-4 bg-[#0b1739]">
+          <button className="flex items-center gap-1 px-3 py-2 text-sm text-gray-300 hover:text-white">
+            <FaChevronLeft /> Previous
+          </button>
 
-        <span className="text-white">
-          Page {currentPage} of {totalPages}
-        </span>
+          {[1, 2, 3, 4, 5].map((n) => (
+            <button
+              key={n}
+              className={`w-8 h-8 rounded-md text-sm font-medium ${
+                n === 2
+                  ? "bg-blue-600 text-white"
+                  : "text-gray-300 hover:bg-[#0e1e4a]"
+              }`}
+            >
+              {n}
+            </button>
+          ))}
 
-        <button
-          onClick={handleNext}
-          disabled={currentPage === totalPages}
-          className="flex items-center gap-1 px-3 py-2 bg-gray-700 rounded hover:bg-gray-600 disabled:opacity-50"
-        >
-          Next <FaChevronRight />
-        </button>
+          <span className="text-gray-400 px-2">...</span>
+
+          <button className="w-8 h-8 rounded-md text-gray-300 hover:bg-[#0e1e4a]">
+            11
+          </button>
+
+          <button className="flex items-center gap-1 px-3 py-2 text-sm text-blue-400 hover:text-blue-300">
+            Next <FaChevronRight />
+          </button>
+        </div>
       </div>
     </div>
   );
-};
-
-export default RepairTable;
+}

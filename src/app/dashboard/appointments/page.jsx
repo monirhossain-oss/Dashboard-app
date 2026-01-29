@@ -95,7 +95,7 @@ export default function Page() {
         </div>
       </div>
       <div>
-        {/* <RepairTable /> */}
+        <RepairTable />
       </div>
     </div>
   );
